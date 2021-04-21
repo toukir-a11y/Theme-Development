@@ -7,7 +7,18 @@
     <div class="posts">
 
         <?php
- 
+  if (!have_posts()){
+  ?>
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3><?php _e("No Result Found","demo");?></h3>
+                </div>
+            </div>
+        </div>
+        <?php
+  }
+
     while(have_posts()){
         the_post();
         get_template_part("post-formats/content", get_post_format());

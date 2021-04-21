@@ -10,6 +10,8 @@ function boot (){
 	add_theme_support("post-thumbnails");
 	add_theme_support("title-tag");
     add_theme_support("custom-background");
+    add_theme_support( 'html5', array( 'search-form' ) );
+
     
     $logo_size= array (
 
@@ -29,7 +31,8 @@ function boot (){
     register_nav_menu("Top Menu",__("Top Menu","neptune"));
     register_nav_menu("footer Menu",__("footer Menu","neptune"));
 
-    //add_theme_support("post-formats",array ("image","quote","video","audio","link"));
+    add_theme_support("post-formats", array("audio","video","image","quate","link"));
+
 }
 add_action ("after_setup_theme", "boot");
 
@@ -37,11 +40,12 @@ add_action ("after_setup_theme", "boot");
 
 
 function bcj_load(){
-    wp_enqueue_style("cload", get_stylesheet_uri(), null,VERSION );
+    
 	wp_enqueue_style("bload", "//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css");
     wp_enqueue_style("father-light-cssload", "//cdn.jsdelivr.net/npm/featherlight@1.7.14/release/featherlight.min.css");
+    wp_enqueue_style("dashicons");
+    wp_enqueue_style("cload", get_stylesheet_uri(), null,VERSION );
     wp_enqueue_script("father-light-jsload", "//cdn.jsdelivr.net/npm/featherlight@1.7.14/release/featherlight.min.js", array("jquery"),"0.1",true);
-
    // wp_enqueue_script("internal_js",get_template_directory_uri()."/internal/js/main.js",null,"0.1",true);
 }
 add_action ("wp_enqueue_scripts", "bcj_load");
@@ -99,29 +103,54 @@ function header_support(){
     if (is_front_page()){
         if(current_theme_supports("custom-header")){
             ?>
-            <style>
-                .header{
-                    background-image: url(<?php echo header_image();?>);
-                    background-repeat: no-repeat;
-                    background-size: cover;
-                }
+<style>
+    .header {
+        background-image: url(<?php echo header_image();?>);
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
 
-                .header h1{
-                    color:#<?php echo get_header_textcolor();?>
-                }
-                .header h3 {
-                     color:#<?php echo get_header_textcolor();?>
-                }
+    .header h1 {
+        color: #<?php echo get_header_textcolor();
+        ?>;
+    }
+    .header h3 {
+        color: #<?php echo get_header_textcolor();
+        ?>;
+    }
+</style>
 
-            </style>
-
-
-            <?php
+<?php
 
         }
     }
 }
 
 add_action("wp_head","header_support");
+
+
+function remove($classes){
+    unset($classes[array_search("format-audio",$classes)]);
+    return $classes;
+}
+
+add_filter("post_class", "remove");
+
+
+
+
+function search_highlight($text){
+    if(is_search()){
+        $pattern = '/('.join('|', explode(' ', get_search_query())).')/i';
+        $text = preg_replace($pattern, '<span class="search-highlight">\0</span>', $text);
+    }
+
+    return $text;
+}
+
+
+add_filter('the_content', 'search_highlight');
+add_filter('the_excerpt', 'search_highlight');
+add_filter('the_title',   'search_highlight');
 
 ?>

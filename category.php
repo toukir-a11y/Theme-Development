@@ -3,17 +3,23 @@
     <?php get_template_part("hero");?>
 
     <!-- post section start-->
+    <h1>
+        the under
+        <?php single_cat_title();?>
+    </h1>
 
-    <div class="posts">
+    <?php single_tag_title();?>
 
-        <?php
- 
+    <?php
     while(have_posts()){
         the_post();
-        get_template_part("post-formats/content", get_post_format());
+       ?>
+
+    <?php the_title();?>
+
+    <?php
     }
     ?>
-    </div>
 
     <!-- post section end -->
 

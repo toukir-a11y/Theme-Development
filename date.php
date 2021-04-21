@@ -3,17 +3,35 @@
     <?php get_template_part("hero");?>
 
     <!-- post section start-->
+    <h1>
+        post under
+    <?php 
+   if(is_month()){
+     $month=  get_query_var("monthnum");
+     $formonth= DateTime::createFromFormat("!m",$month);
+     echo $formonth-> format("F");
+    
+  } elseif(is_year()){
+    echo  esc_html (get_query_var("year"));
+   }elseif (is_day()){
+    printf('%s/%s/%s', get_query_var("day"),get_query_var("monthnum"),get_query_var("year"));
+  }
 
-    <div class="posts">
+   ?>
+    </h1>
 
-        <?php
- 
+    <?php single_tag_title();?>
+
+    <?php
     while(have_posts()){
         the_post();
-        get_template_part("post-formats/content", get_post_format());
+       ?>
+
+    <?php the_title();?>
+
+    <?php
     }
     ?>
-    </div>
 
     <!-- post section end -->
 
