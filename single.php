@@ -19,9 +19,9 @@ if (!is_active_sidebar("sidebar-1")){
                 <div class="posts">
 
                     <?php
- while(have_posts()){
- the_post();
- ?>
+                    while(have_posts()){
+                    the_post();
+                    ?>
                     <div <?php post_class();?>>
                         <div class="container">
                             <div class="row">
@@ -38,26 +38,25 @@ if (!is_active_sidebar("sidebar-1")){
                                         <?php echo get_the_date();?>
                                     </p>
                                 </div>
-
                                 <div class="col-md-12 ">
                                     <p>
                                         <?php 
-                       if (has_post_thumbnail()){
-                       	$thumbnail_url = get_the_post_thumbnail_url(null,"large");
-                       	echo '<a href="'.$thumbnail_url.'" data-featherlight="image">';
-                       the_post_thumbnail("large", array ("class"=>"img-fluid"));
-                       echo '</a>';
+                                       if (has_post_thumbnail()){
+                                       	$thumbnail_url = get_the_post_thumbnail_url(null,"large");
+                                       	echo '<a href="'.$thumbnail_url.'" data-featherlight="image">';
+                                        the_post_thumbnail("large", array ("class"=>"img-fluid"));
+                                         echo '</a>';
 
                         }
                        ?>
                                     </p>
                                     <?php the_content();
-                      wp_link_pages();
+                                    wp_link_pages();
 
-                      /*next_post_link();
-                      echo"</br>";
-                      previous_post_link();
-                      */
+                                      /*next_post_link();
+                                      echo"</br>";
+                                      previous_post_link();
+                                     */
 
                       ?>
                                 </div>
@@ -94,8 +93,10 @@ if (!is_active_sidebar("sidebar-1")){
         <!-- post section end -->
 
         <div class="col-md-4">
-            <?php if (is_active_sidebar("sidebar-1")) {
-    dynamic_sidebar("sidebar-1 "))
+            <?php 
+            
+            if (is_active_sidebar("sidebar-1")){
+             dynamic_sidebar("sidebar-1");
 }
 ?>
         </div>
@@ -103,3 +104,4 @@ if (!is_active_sidebar("sidebar-1")){
 </div>
 <?php get_footer();
 ?>
+
