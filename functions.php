@@ -33,6 +33,9 @@ function boot (){
 
     add_theme_support("post-formats", array("audio","video","image","quate","link"));
 
+
+    add_image_size("test",400,400,true);
+
 }
 add_action ("after_setup_theme", "boot");
 
@@ -46,11 +49,11 @@ function bcj_load(){
     wp_enqueue_style("dashicons");
     wp_enqueue_style("cload", get_stylesheet_uri(), null,VERSION );
     wp_enqueue_script("father-light-jsload", "//cdn.jsdelivr.net/npm/featherlight@1.7.14/release/featherlight.min.js", array("jquery"),"0.1",true);
-   // wp_enqueue_script("internal_js",get_template_directory_uri()."/internal/js/main.js",null,"0.1",true);
+    wp_enqueue_style("demo-css-file",get_template_directory_uri()."/assets/parent.css");
+   // wp_enqueue_script("internal_js",get_template_directory_uri()."/internal/js/main.js",null,"0.1",true);   
 }
+
 add_action ("wp_enqueue_scripts", "bcj_load");
-
-
 
 function sidebar(){
 
@@ -64,8 +67,6 @@ function sidebar(){
         'before_title'  => '<h3 class="widget-title">',
         'after_title'   => '</h3>',
     ) );
-
-
 
 
     register_sidebar( 
@@ -152,5 +153,14 @@ function search_highlight($text){
 add_filter('the_content', 'search_highlight');
 add_filter('the_excerpt', 'search_highlight');
 add_filter('the_title',   'search_highlight');
+
+
+if(!function_exists("today_date")){
+    function today_date (){
+        echo date("m/d/y");
+    }
+
+}
+
 
 ?>
