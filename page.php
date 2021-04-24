@@ -16,6 +16,7 @@
                     <div class="col-md-4  ">
                         <h2 class="post-title">
                             <?php the_title();?>
+                            <?php today_date();?>
                         </h2>
                     </div>
                 </div>
