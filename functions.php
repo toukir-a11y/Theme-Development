@@ -155,12 +155,4 @@ add_filter('the_excerpt', 'search_highlight');
 add_filter('the_title',   'search_highlight');
 
 
-if(!function_exists("today_date")){
-    function today_date (){
-        echo date("m/d/y");
-    }
-
-}
-
-
 ?>
