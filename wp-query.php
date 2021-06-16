@@ -18,8 +18,25 @@ Template Name:wp query
 
                 'posts_per_page'=> 4,
                 'paged'=> $paged,
-                'meta_key'=> 'future',
-                'meta_value'=> '1',
+
+                'meta_query'=> array(
+
+                    'relation'=> 'AND',
+                    array(
+                        'key'=> 'red',
+                        'value'=> '1',
+                        'compare'=>'='
+                    ),
+
+                    array(
+                        'key'=> 'red',
+                        'value'=> '1',
+                        'compare'=>'='
+                    ),
+                )
+
+                // 'meta_key'=> 'future',
+                // 'meta_value'=> '1',
                 
                 //'post__in'=> array(19,28,26,1),
                 //'category_name'=>'test', 

@@ -1,5 +1,9 @@
 <?php
 
+require_once get_theme_file_path( '/inc/tgm.php'); // for tgm file load 
+require_once get_theme_file_path('/inc/acf.php'); // for load acf all field 
+require_once get_theme_file_path( '/inc/cmb2.php'); // for cmb2 load 
+
 if (site_url()=="http://localhost/try"){
     define ("VERSION",time());
 }else define("VERSION", wp_get_theme()->get("Version"));
@@ -34,8 +38,7 @@ function boot (){
     add_theme_support("post-formats", array("audio","video","image","quate","link"));
 
 
-    add_image_size("test",400,400,true);
-
+   add_image_size( "simple", 500, 500, true );
 }
 add_action ("after_setup_theme", "boot");
 
@@ -153,6 +156,24 @@ function search_highlight($text){
 add_filter('the_content', 'search_highlight');
 add_filter('the_excerpt', 'search_highlight');
 add_filter('the_title',   'search_highlight');
+
+
+function main_query_modify($wpq){
+    if(is_home()&& $wpq->is_main_query()){
+        $wpq->set("post__not_in",array(1));
+    }   
+}
+add_action("pre_get_posts", "main_query_modify");
+
+
+// function main_query_modify_by_categoty($wpq){
+//     if(is_home()&& $wpq->is_main_query()){
+//         $wpq->set("category__not_in",array(15));
+//     }   
+// }
+// add_action("pre_get_posts", "main_query_modify_by_categoty");
+
+//add_filter('acf/settings/show_admin', '__return_false');   // this filter hook for acf menu show and hidden 
 
 
 ?>
